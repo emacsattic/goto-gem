@@ -6,7 +6,7 @@ Open an installed gem in dired
 
 Installation alternatives:
 
-- Download git-timemachine.el and drop it somewhere in your `load-path`.
+- Download goto-gem.el and drop it somewhere in your `load-path`.
 
 # Usage
 
