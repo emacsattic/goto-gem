@@ -51,6 +51,7 @@
     "[ (]\\([0-9.]+\\)[,)]"
     (shell-command-to-string (format "gem list | grep -E '^%s \\('" gem))))))
 
+;;;###autoload
 (defun goto-gem ()
  "Navigate (dired) to gem directory."
  (interactive)
