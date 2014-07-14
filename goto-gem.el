@@ -4,7 +4,7 @@
 
 ;; Author: Peter Stiernström <peter@stiernstrom.se>
 ;; Keywords: gemfile, convenience
-;; Version: 1.0
+;; Version: 1.1
 ;; Package-Requires: ((s "1.9.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -58,6 +58,26 @@
  (let* ((gem (goto-gem--read-gem))
         (version (goto-gem--read-gem-version gem)))
   (dired (format "%s/%s-%s" (goto-gem--directory) gem version))))
+
+;;;###autoload
+(defun goto-gem-grep-gem ()
+ "Grep specified gem."
+ (interactive)
+ (let* ((gem (goto-gem--read-gem))
+        (version (goto-gem--read-gem-version gem))
+        (directory (format "%s/%s-%s" (goto-gem--directory) gem version))
+        (query (read-string "Grep for: " (thing-at-point 'symbol))))
+  (when (and gem version query)
+   (rgrep query "*.*" directory))))
+
+;;;###autoload
+(defun goto-gem-grep-all-gems ()
+ "Grep in all gems."
+ (interactive)
+ (rgrep
+  (read-string "Grep for: " (thing-at-point 'symbol))
+  "*.*"
+  (goto-gem--directory)))
 
 (provide 'goto-gem)
 ;;; goto-gem.el ends here
