@@ -4,7 +4,7 @@
 
 ;; Author: Peter Stiernström <peter@stiernstrom.se>
 ;; Keywords: gemfile, convenience
-;; Version: 1.1
+;; Version: 1.2
 ;; Package-Requires: ((s "1.9.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -25,6 +25,8 @@
 ;; Use M-x goto-gem to find a specific (installed) gem in dired.
 
 ;;; Code:
+
+(require 'grep)
 
 (defun goto-gem--gem-name (string)
  "Parse gem name from STRING."
@@ -68,12 +70,14 @@
         (directory (format "%s/%s-%s" (goto-gem--directory) gem version))
         (query (read-string "Grep for: " (thing-at-point 'symbol))))
   (when (and gem version query)
+   (grep-compute-defaults)
    (rgrep query "*.*" directory))))
 
 ;;;###autoload
 (defun goto-gem-grep-all-gems ()
  "Grep in all gems."
  (interactive)
+ (grep-compute-defaults)
  (rgrep
   (read-string "Grep for: " (thing-at-point 'symbol))
   "*.*"
