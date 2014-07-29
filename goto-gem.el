@@ -34,7 +34,8 @@
 
 (defun goto-gem--installed-gems ()
  "Available gem names."
- (mapcar 'goto-gem--gem-name (split-string (shell-command-to-string "gem list") "\n" t)))
+ (mapcar 'goto-gem--gem-name
+  (process-lines "gem" "list")))
 
 (defun goto-gem--directory ()
  "Gem directory."
